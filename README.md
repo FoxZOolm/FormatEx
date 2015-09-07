@@ -1,52 +1,30 @@
 # FormatEx
 
-look like String.format but with plugin extension
-
---- usage ---
-
-FormatEx foo=new FormatEx("<...>{<index>|<path>:<function>[=<par>][+<function>[=<par>]}<...>");
-...
-
-String result=foo.ex(<object>[,<object>...))
-
-...
-
-
---- add custom function plugin ---
-
-FormatEx.exformat.add("<name>",new ExFormat(){
-
-	    @Override
-	    
-	    public String proceed(String v, String p) {
-	    
-		    // v=value, p=par
-		    
-	    }
-	    
-	});
-	
-	
-	or
-	
-	
-	public class foo extends ExFomat{
-	
-	    @Override
-	
-	    public String proceed(String v, String p) {
-	
-		    // v=value, p=par
-	
-	    }
-	
-	}
-	
-	...
-	
-	FormatEx.exformat.add("name",foo);
-	
-	
-	--- exemple ---
-	
+look like String.format but with plugin extension<br>
+--- usage ---<br>
+FormatEx foo=new FormatEx("<...>{<index>|<path>:<function>[=<par>][+<function>[=<par>]}<...>");<br>
+...<br>
+String result=foo.ex(<object>[,<object>...))<br>
+...<br>
+<br>
+--- add custom function plugin ---<br>
+FormatEx.exformat.add("<name>",new ExFormat(){<br>
+	    @Override public String proceed(String v, String p) {<br>
+		    // v=value, p=par<br>
+	    }<br>
+	});<br>
+	<br>
+	or<br>
+	<br>
+	public class foo extends ExFomat{<br>
+	    @Override public String proceed(String v, String p) {<br>
+		    // v=value, p=par<br>
+	    }<br>
+	}<br>
+	<br>
+	...<br>
+	<br>
+	FormatEx.exformat.add("name",foo);<br>
+	<br>
+	--- exemple ---<br>
 	see text
