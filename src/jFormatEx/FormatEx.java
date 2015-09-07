@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 public class FormatEx {
 
+    public static String co="(c)SFJN FormatEx [140907] by foxz free.fr CC:ByNc";
+    
     private class obj {
 	protected int hid;
     };
