@@ -12,20 +12,25 @@ public class JFormatEx {
 	}
     }
     public static void main(String[] args) {
-	FormatEx.exFormat.put("u", new ExFormat() {
+	
+	
+	FormatEx.exFormat.put("q", new ExFormat(){
 	    @Override
 	    public String proceed(String v, String p) {
-		return v.toUpperCase();
+		if (p.equals("")) p="\"";
+		p+=p;
+		return p.charAt(0)+v+p.charAt(1);
 	    }
 	});
-	FormatEx.exFormat.put("l",new ExFormat(){
-	    @Override
-	    public String proceed(String v, String p) {
-		return v.toLowerCase();
-	    }
-	});
-        FormatEx f=new FormatEx("test:>{#0.toto:l}<");
 	test t=new test();
-        System.out.print(f.ex(t));
+	System.out.println(FormatEx.ex("test1:{#0.foo:l}",t));
+ 	System.out.println(new FormatEx("test2:{#0.foo:l+q}").ex(t));
+	System.out.println(new FormatEx("test3:{#0.foo:l+q=*}").ex(t));
+	System.out.println(new FormatEx("test4:{#0.foo:l+q=<>}").ex(t));
+	System.out.println(new FormatEx("test5:{#0.foo:l}").ex(t));
+ 	System.out.println(new FormatEx("test6:{#0.foo:q+q=<>}").ex(t));
+	System.out.println(new FormatEx("test7:{#0.foo:q=*+q}").ex(t));
+	System.out.println(new FormatEx("test8:{#0.foo:q=*+q=<>}").ex(t));
+	
     }
 }

@@ -1,5 +1,8 @@
 package jFormatEx;
 
+import jFormatEx.BuilIn.Ex_L;
+import jFormatEx.BuilIn.Ex_Q;
+import jFormatEx.BuilIn.Ex_U;
 import static jFormatEx.FormatEx.exFormat;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -13,8 +16,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FormatEx {
+    
+    public static String ex(String p,Object... o){
+	return new FormatEx(p).ex(o);
+    };
 
     public static String co="(c)SFJN FormatEx [140907] by foxz free.fr CC:ByNc";
+
+    private static Map<String, ExFormat> addstd() {
+	Map<String,ExFormat>r=new HashMap<>();
+	r.put("U",new Ex_U());
+	r.put("l",new Ex_L());
+	r.put("q",new Ex_Q());
+	return r;
+    }
     
     private class obj {
 	protected int hid;
@@ -74,7 +89,7 @@ public class FormatEx {
 	    switch (str.charAt(pos)) {
 		case '}':		    
 		    p.add(new ofun(fn,str.substring(beg, pos)));
-		    beg=pos+1;
+		    beg=pos;
 		    return;		    
 		case '+':
 		    p.add(new ofun(fn, str.substring(beg, pos)));
@@ -97,8 +112,7 @@ public class FormatEx {
 		    pp();
 		    return;
 		case '}':		    
-		    pp();
-		    beg=pos+1;
+		    pp();		    
 		    return;
 	    }
 	}
@@ -124,7 +138,6 @@ public class FormatEx {
 		    return;
 		case '}':
 		    pf();
-		    beg = pos;
 		    return;
 	    }
 	}
@@ -144,6 +157,8 @@ public class FormatEx {
     }
     
     private void pidx(){
+	pos++;
+	beg=pos;
 	for (;pos<end;pos++){
 	    switch(str.charAt(pos)){
 		case '#':
@@ -153,8 +168,6 @@ public class FormatEx {
 		case '.':
 		    aidx();
 		    pv();
-		    pos++;
-		    beg=pos;
 		    return;	
 		case ':':
 		    aidx();
@@ -163,18 +176,15 @@ public class FormatEx {
 		case '}':
 		    aidx();
 		    pv();		    
-		    pos++;
-		    beg=pos+1;
 		    return;
 	    }
 	}
     }
 
-    public static Map<String, ExFormat> exFormat = new HashMap<>();
-    
+    public static Map<String, ExFormat> exFormat = addstd();
+	    
     public String ex(Object... pp)  {
-	StringBuilder r = new StringBuilder();
-	StringBuilder debug = new StringBuilder();
+	StringBuilder r = new StringBuilder();	
 	int idx=0;
 	Object oo=null;
 	String cur=null;
@@ -229,11 +239,11 @@ public class FormatEx {
 		    break;
 		case '{':
 		    dos();
-		    pos++;beg=pos;
 		    pidx();
+		    beg=pos+1;
 		    break;		
 	    }
 	}
-	dos();
+	if (beg<pos)dos();
     }
 }
