@@ -2,7 +2,7 @@
 String.format look like more extendable and useful   
 
 ##--- Usage ---   
-`FormatEx foo=new FormatEx("[...]{[#<index>[.<path>][:<function>[=<parameter][+<function>...]}[...]");`    
+`FormatEx foo=new FormatEx("[...]{[<index>[.<path>][:<function>[=<parameter][+<function>...]}[...]");`    
 ...   
 `foo.ex(fooObject);`    
 ...   
@@ -48,20 +48,20 @@ object path tree can be a function but without parameter and must return a "`.to
 
 ##--- Example ---
 `
-FormatEx foo=new FormatEx("str= {#1:U+q} and have {#1.length} char");    
+FormatEx foo=new FormatEx("str= {1:U+q} and have {1.length} char");    
 ... 
 print(foo.ex(fooobj0,foostr1)); 
 `   
     
 1st pattern:    
-`#1`=get value of foostr1    
+`1`=get value of foostr1    
 `:`=function escape sequence    
 `U`=call 'U' build-in function  
 `+`=chaining function escape sequence      
 `q`=call 'q' buil-in function   
     
 2nd pattern:        
-`#1`=foostr1    
+`1`=foostr1    
 `:`=function escape     
 `.`=object tree escape sequence 
 `length`=call `foostr1.length()` function
