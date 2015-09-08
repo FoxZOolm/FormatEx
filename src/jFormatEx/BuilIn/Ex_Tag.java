@@ -6,7 +6,7 @@ public class Ex_Tag extends ExFormat{
     private String pre;
     private String post;
     @Override public String proceed(String v, String p) {
-	return pre.concat(v).concat(v).concat(post);
+	return pre.concat(v).concat(post);
     }
     @Override public String precomp(String p){
 	String a="";
