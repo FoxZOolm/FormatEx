@@ -1,30 +1,30 @@
-# FormatEx
+#&nbspFormatEx
 
-look like String.format but with plugin extension<br>
---- usage ---<br>
-FormatEx foo=new FormatEx("<...>{<index>|<path>:<function>[=<par>][+<function>[=<par>]}<...>");<br>
+look&nbsplike&nbspString.format&nbspbut&nbspwith&nbspplugin&nbspextension<br>
+---&nbspusage&nbsp---<br>
+FormatEx&nbspfoo=new&nbspFormatEx("<...>{<index>|<path>:<function>[=<par>][+<function>[=<par>]}<...>");<br>
 ...<br>
-String result=foo.ex(<object>[,<object>...))<br>
+String&nbspresult=foo.ex(<object>[,<object>...))<br>
 ...<br>
 <br>
---- add custom function plugin ---<br>
-FormatEx.exformat.add("<name>",new ExFormat(){<br>
-	    @Override public String proceed(String v, String p) {<br>
-		    // v=value, p=par<br>
-	    }<br>
+---&nbspadd&nbspcustom&nbspfunction&nbspplugin&nbsp---<br>
+FormatEx.exformat.add("<name>",new&nbspExFormat(){<br>
+	&nbsp&nbsp&nbsp&nbsp@Override&nbsppublic&nbspString&nbspproceed(String&nbspv,&nbspString&nbspp)&nbsp{<br>
+		&nbsp&nbsp&nbsp&nbsp//&nbspv=value,&nbspp=par<br>
+	&nbsp&nbsp&nbsp&nbsp}<br>
 	});<br>
 	<br>
 	or<br>
 	<br>
-	public class foo extends ExFomat{<br>
-	    @Override public String proceed(String v, String p) {<br>
-		    // v=value, p=par<br>
-	    }<br>
+	public&nbspclass&nbspfoo&nbspextends&nbspExFomat{<br>
+	&nbsp&nbsp&nbsp&nbsp@Override&nbsppublic&nbspString&nbspproceed(String&nbspv,&nbspString&nbspp)&nbsp{<br>
+		&nbsp&nbsp&nbsp&nbsp//&nbspv=value,&nbspp=par<br>
+	&nbsp&nbsp&nbsp&nbsp}<br>
 	}<br>
 	<br>
 	...<br>
 	<br>
 	FormatEx.exformat.add("name",foo);<br>
 	<br>
-	--- exemple ---<br>
-	see text
+	---&nbspexemple&nbsp---<br>
+	see&nbsptext
