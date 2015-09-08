@@ -5,11 +5,13 @@ import jFormatEx.BuilIn.Ex_Q;
 import jFormatEx.BuilIn.Ex_Tag;
 import jFormatEx.BuilIn.Ex_U;
 import static jFormatEx.FormatEx.exFormat;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class FormatEx {
 	return new FormatEx(p).ex(o);
     };
 
-    public static String co="(c)SFJN FormatEx [140907] by foxz free.fr CC:ByNc";
+    public static String co="(c)SFJN FormatEx [140908] by foxz free.fr CC:ByNc";
 
     private static Map<String, ExFormat> addstd() {
 	Map<String,ExFormat>r=new HashMap<>();
@@ -134,9 +136,25 @@ public class FormatEx {
 	    }
 	}
     }
+    
+    private class oarr extends obj{
+	public Object idx=null;
+	public oarr(String v){
+	    hid=5;
+	    Integer i=Integer.parseInt(v);
+	    idx=i;	    
+	    if (isNull(i)) idx=v;
+	}
+    }
 
     private void aov() {
-	p.add(new ovar(str.substring(beg, pos)));
+	String t=str.substring(beg, pos);
+	Integer i=Integer.parseInt(t);
+	if (isNull(i)) {
+	    p.add(new ovar(t));
+	} else {
+	    p.add(new oarr(t));
+	}
 	beg = pos;
     }
 
@@ -145,6 +163,10 @@ public class FormatEx {
 	beg = pos;
 	for (; pos < end; pos++) {
 	    switch (str.charAt(pos)) {
+		case '#':
+		    aov();
+		    parr();
+		    return;
 		case '.':
 		    aov();
 		    beg++;
@@ -154,7 +176,7 @@ public class FormatEx {
 		    pf();
 		    return;
 		case '}':
-		    pf();
+		    aov();
 		    return;
 	    }
 	}
@@ -173,15 +195,43 @@ public class FormatEx {
 	beg=pos;
     }
     
+    private void aarr(){	
+	p.add(new oarr(str.substring(beg,pos)));
+	beg=pos;
+    }
+    
+    
+    private void parr(){
+	pos++;
+	beg = pos;
+	for (; pos < end; pos++) {
+	    switch (str.charAt(pos)) {
+		case '#':
+		    aarr();
+		    break;
+		case '.':
+		    pv();
+		    return;
+		case ':':
+		    aarr();
+		    pf();
+		    return;
+		case '}':
+		    aarr();
+		    return;
+	    }
+	}
+    }
+    
     private void pidx(){
 	pos++;
 	beg=pos;
 	for (;pos<end;pos++){
 	    switch(str.charAt(pos)){
 		case '#':
-		    pos++;
-		    beg=pos;
-		    break;
+		    aidx();
+		    parr();
+		    return;
 		case '.':
 		    aidx();
 		    pv();
@@ -232,14 +282,21 @@ public class FormatEx {
 		    }
 		    break;
 		case 3:
-		    ofun f = (ofun) o;
-		    if (isNull(cur)) cur=oo.toString();
+		    ofun f = (ofun) o;		    
 		    //f.func.org=oo.toString();
 		    cur=f.func.proceed(cur,f.par);
 		    break;
 		case 4:
 		    idx=((oidx) o).idx;
-		    oo=pp[idx];
+		    oo=pp[idx];		    
+		    cur=oo.toString();
+		    break;
+		case 5:
+		    oarr t=((oarr) o);
+		    Object[] c=(Object[])oo;
+		    oo=c[(Integer)t.idx];
+		    cur=oo.toString();
+		    break;
 	    }
 	}
 	if(!isNull(cur))r.append(cur);
