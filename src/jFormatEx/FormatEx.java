@@ -2,8 +2,10 @@ package jFormatEx;
 
 import jFormatEx.BuilIn.Ex_L;
 import jFormatEx.BuilIn.Ex_Q;
+import jFormatEx.BuilIn.Ex_Tag;
 import jFormatEx.BuilIn.Ex_U;
 import static jFormatEx.FormatEx.exFormat;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,7 +30,12 @@ public class FormatEx {
 	r.put("U",new Ex_U());
 	r.put("l",new Ex_L());
 	r.put("q",new Ex_Q());
+	r.put("tag",new Ex_Tag());
 	return r;
+    }
+
+    private static void Ex_Tag() {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private class obj {
@@ -63,9 +70,19 @@ public class FormatEx {
 	public ExFormat func;
 
 	public ofun(String n, String p) {
-	    func = exFormat.get(n);
-	    func.precomp(p);
-	    par = p;
+	    Constructor o = null;
+	    try {
+		o = exFormat.get(n).getClass().getDeclaredConstructor();
+	    } catch (SecurityException | NoSuchMethodException ex) {
+		Logger.getLogger(FormatEx.class.getName()).log(Level.SEVERE, null, ex);
+	    }	    
+	    try {
+		o.setAccessible(true);
+		func=(ExFormat)o.newInstance();
+	    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+		Logger.getLogger(FormatEx.class.getName()).log(Level.SEVERE, null, ex);
+	    }	    
+	    par=func.precomp(p);	    
 	    hid=3;
 	}
     }
@@ -217,7 +234,7 @@ public class FormatEx {
 		case 3:
 		    ofun f = (ofun) o;
 		    if (isNull(cur)) cur=oo.toString();
-		    f.func.org=oo.toString();
+		    //f.func.org=oo.toString();
 		    cur=f.func.proceed(cur,f.par);
 		    break;
 		case 4:
