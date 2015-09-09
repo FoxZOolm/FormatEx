@@ -62,6 +62,7 @@ print(foo.ex(fooobj0,foostr1));
     
 2nd pattern:        
 `1`=foostr1    
+`:`=function escape     
 `.`=object tree escape sequence 
 `length`=call `foostr1.length()` function
     
