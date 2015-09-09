@@ -3,15 +3,14 @@ package jFormatEx;
 import jFormatEx.BuilIn.Ex_L;
 import jFormatEx.BuilIn.Ex_Q;
 import jFormatEx.BuilIn.Ex_Tag;
+import jFormatEx.BuilIn.Ex_Trim;
 import jFormatEx.BuilIn.Ex_U;
 import static jFormatEx.FormatEx.exFormat;
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +32,9 @@ public class FormatEx {
 	r.put("l",new Ex_L());
 	r.put("q",new Ex_Q());
 	r.put("tag",new Ex_Tag());
+	r.put("trim",new Ex_Trim());
+	r.put("_", new  Ex_Trim());
 	return r;
-    }
-
-    private static void Ex_Tag() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private class obj {
@@ -149,12 +146,8 @@ public class FormatEx {
 
     private void aov() {
 	String t=str.substring(beg, pos);
-	Integer i=Integer.parseInt(t);
-	if (isNull(i)) {
-	    p.add(new ovar(t));
-	} else {
-	    p.add(new oarr(t));
-	}
+	if (t.isEmpty()) return;
+	p.add(new ovar(t));
 	beg = pos;
     }
 
