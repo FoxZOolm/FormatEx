@@ -261,6 +261,7 @@ public class FormatEx {
 			Field f=oo.getClass().getDeclaredField(i);
 			f.setAccessible(true);		
 			oo=f.get(oo);
+			cur=oo.toString();
 			break;
 		    } catch (NoSuchFieldException ex){
 		    } catch (SecurityException|IllegalArgumentException|IllegalAccessException ex) {
@@ -273,6 +274,7 @@ public class FormatEx {
 		    } catch (SecurityException|IllegalArgumentException|NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
 			Logger.getLogger(FormatEx.class.getName()).log(Level.SEVERE, null, ex);
 		    }
+		    cur=oo.toString();
 		    break;
 		case 3:
 		    ofun f = (ofun) o;		    

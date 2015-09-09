@@ -15,7 +15,8 @@ String.format look like more extendable and useful
 `q[=<sign>[sign]]`=> quote value with `sign` (" by default)     
 `l`=> lower case value  
 `U`=> upper case value  
-`tag=<tag>[ data]`=>enclose value with "`<tag>`" like HTML style    `
+`tag=<tag>[ data]`=>enclose value with "`<tag>`" like HTML style    
+`trim` => trim String
     
 ##--- Custom function declaration ---   
 `FormatEx.exFormat.add("<name>",new ExFormat(){    
@@ -62,7 +63,6 @@ print(foo.ex(fooobj0,foostr1));
     
 2nd pattern:        
 `1`=foostr1    
-`:`=function escape     
 `.`=object tree escape sequence 
 `length`=call `foostr1.length()` function
     
